@@ -1,0 +1,333 @@
+/* ---------------------------------------------------------
+   1. 基础定义与大牌字体导入
+   --------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+
+:root {
+    --primary-color: #1a1a1a;    /* 纯粹的深色，显高级 */
+    --accent-color: #c5a059;     /* 雅致金色，用于强调 */
+    --bg-light: #ffffff;
+    --bg-secondary: #f9f9f9;     /* 浅灰背景，增加层次感 */
+    --text-main: #333333;
+    --text-muted: #777777;
+    --font-heading: 'Playfair Display', serif; /* 衬线体用于标题，大牌感核心 */
+    --font-body: 'Inter', sans-serif;           /* 无衬线体用于正文，清晰易读 */
+    --nav-height: 80px;
+}
+
+/* ---------------------------------------------------------
+   2. 全局样式重置
+   --------------------------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-y: scroll; /* 强制显示垂直滚动条轨道，避免跳转时页面闪烁 */
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-main);
+    background-color: var(--bg-light);
+    line-height: 1.7;
+    padding-top: var(--nav-height); /* 关键：空出固定导航栏的高度 */
+}
+
+/* ---------------------------------------------------------
+   3. 导航栏 (Header & Nav)
+   --------------------------------------------------------- */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: var(--nav-height);
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px); /* 磨砂玻璃效果 */
+    border-bottom: 1px solid #eee;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1300px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.logo img {
+    height: 45px; /* 保持 Logo 精致，不要太大 */
+    display: block;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
+
+nav ul li {
+    margin-left: 2.5rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase; /* 导航大写更显大牌 */
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: var(--accent-color);
+}
+
+/* 语言切换器样式 */
+.lang-switch {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.lang-switch a {
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+.lang-switch a.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* ---------------------------------------------------------
+   4. 轮播图区域 (Hero Slider)
+   --------------------------------------------------------- */
+.hero {
+    height: calc(100vh - var(--nav-height));
+    position: relative;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.slider {
+    height: 100%;
+    width: 100%;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out; /* 切换效果丝滑 */
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 保证图片不变形 */
+    filter: brightness(0.9); /* 轻微压暗，突出品牌感 */
+}
+
+/* ---------------------------------------------------------
+   5. 产品展示区域 (Products)
+   --------------------------------------------------------- */
+/* 轮播图容器基础设置 */
+.hero {
+    position: relative;
+    height: calc(100vh - var(--nav-height));
+    overflow: hidden;
+}
+
+/* 洗牌动画效果：淡入淡出 + 轻微缩放 */
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: scale(1.05); /* 默认轻微放大 */
+    transition: opacity 1s ease-in-out, transform 1.2s ease-in-out;
+    z-index: 1;
+}
+
+.slide.active {
+    opacity: 1;
+    transform: scale(1); /* 激活时恢复正常大小，形成视觉深度感 */
+    z-index: 2;
+}
+
+/* 指示点容器 */
+.slider-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 12px;
+}
+
+/* 初始点样式：白色半透明 */
+.dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+/* 当前激活点样式：品牌金色或纯白，且放大 */
+.dot.active {
+    background-color: var(--accent-color); /* 或者用白色 #fff */
+    transform: scale(1.3);
+    border: 2px solid #fff;
+}
+.products {
+    padding: 6rem 2rem;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.products h2 {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    text-align: center;
+    margin-bottom: 4rem;
+    color: var(--primary-color);
+}
+
+.category {
+    margin-bottom: 5rem;
+}
+
+.category h3 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    border-left: 4px solid var(--accent-color);
+    padding-left: 1rem;
+}
+
+/* 产品滑块容器 */
+.slider-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.image-slider {
+    width: 100%;
+    overflow: hidden;
+}
+
+.product-slide {
+    display: none; /* 由 JS 控制 active 显示 */
+    gap: 1.5rem;
+    justify-content: flex-start;
+}
+
+.product-slide.active {
+    display: flex;
+}
+
+.product-slide img {
+    width: calc(33.333% - 1rem); /* 一排三张 */
+    aspect-ratio: 5/3; /* 纵向黄金比例，高级感倍增 */
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+}
+
+.product-slide img:hover {
+    transform: scale(1.03);
+}
+
+/* 左右按钮美化 */
+.prev, .next {
+    background: white;
+    color: var(--primary-color);
+    border: 1px solid #ddd;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 10;
+    border-radius: 50%;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.prev:hover, .next:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* ---------------------------------------------------------
+   6. 页脚 (Footer)
+   --------------------------------------------------------- */
+footer {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+footer p {
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    opacity: 0.7;
+}
+
+/* ---------------------------------------------------------
+   7. 响应式适配 (Responsive)
+   --------------------------------------------------------- */
+@media (max-width: 992px) {
+    .product-slide img {
+        width: calc(50% - 1rem); /* 平板上一排两张 */
+    }
+}
+
+@media (max-width: 768px) {
+    body { padding-top: 60px; }
+    header { height: 60px; }
+    
+    nav { padding: 0 1rem; }
+    nav ul { display: none; } /* 手机端建议使用汉堡菜单，此处先隐藏 */
+    
+    .products h2 { font-size: 2rem; }
+    
+    .product-slide img {
+        width: 100%; /* 手机上一排一张 */
+    }
+}
+
+/* ---------------------------------------------------------
+   8. 自定义滚动条样式 (大牌细长感)
+   --------------------------------------------------------- */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neospace Decor - Modern Home Decoration</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="favicon.ico">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="assets/logo.png" alt="Neospace Decor Logo">
+            </div>
+            
+            <ul>
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#products">Produk</a></li>
+                <li><a href="#about">Tentang Kami</a></li>
+                <li><a href="#contact">Hubungi Kami</a></li>
+            </ul>
+
+            <div class="lang-switch">
+                <a href="../index.html">CN</a> | <a href="index.html" class="active">ID</a>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="slider">
+            <div class="slide active"><img src="assets/slider/catScratch1.jpg" alt="1"></div>
+            <div class="slide"><img src="assets/slider/catScratch2.jpg" alt="2"></div>
+            <div class="slide"><img src="assets/slider/wallPaper2.png" alt="3"></div>
+        </div>
+
+        <div class="slider-dots">
+            <span class="dot active" onclick="currentSlide(0)"></span>
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+        </div>
+    </section>
+
+    <section id="products" class="products">
+        <h2>Produk Kami</h2>
+
+        <div class="category">
+            <h3>Wall Decals</h3>
+            <div class="slider-container">
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <div class="image-slider">
+                    <div class="product-slide active">
+                        <img src="assets/products/wallpaper/wallPaper1.png" alt="Wallpaper 1">
+                        <img src="assets/products/wallpaper/wallPaper2.png" alt="Wallpaper 2">
+                        <img src="assets/products/wallpaper/Wallpaper3.png" alt="Wallpaper 3">
+                    </div>
+                    <div class="product-slide">
+                        <img src="assets/products/wallpaper/Wallpaper4.png" alt="Wallpaper 4">
+                        </div>
+                </div>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+        </div>
+
+        <div class="category">
+            <h3>Cat Scratching Pad</h3>
+            <div class="slider-container">
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <div class="image-slider">
+                    <div class="product-slide active">
+                        <img src="assets/products/catscratch/catScratch0.png" alt="Catscratch 1">
+                        </div>
+                </div>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+        </div>
+
+        <div class="category">
+            <h3>Peel and Stick Floor Tiles</h3>
+            <div class="slider-container">
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <div class="image-slider">
+                    <div class="product-slide active">
+                        <img src="assets/products/floorpaper/floorpaper1.jpg" alt="Floorpaper 1">
+                        <img src="assets/products/floorpaper/floorpaper2.jpg" alt="Floorpaper 2">
+                    </div>
+                </div>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="products" style="background: var(--bg-secondary);">
+        <h2>Tentang Kami</h2>
+        <p style="max-width: 800px; margin: 0 auto; text-align: center; color: var(--text-muted);">
+            Neospace Decor menyediakan solusi dekorasi rumah premium di Indonesia. Kami fokus pada kualitas, estetika, dan kenyamanan hunian Anda.
+        </p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Neospace Decor. All rights reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
