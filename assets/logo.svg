@@ -1,0 +1,17 @@
+﻿<svg width="760" height="220" viewBox="0 0 760 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NeoSpace logo">
+  <defs>
+    <linearGradient id="textGrad" x1="0" y1="50" x2="700" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#16203A"/>
+      <stop offset="1" stop-color="#233C8B"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="760" height="220" fill="transparent"/>
+
+  <text x="0" y="146"
+    font-family="Poppins, Montserrat, Segoe UI, Arial, sans-serif"
+    font-size="124"
+    font-weight="700"
+    letter-spacing="-1"
+    fill="url(#textGrad)">NeoSpace</text>
+</svg>
