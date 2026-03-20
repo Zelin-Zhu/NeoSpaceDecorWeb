@@ -306,8 +306,7 @@ img {
 
 .product-page img {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  height: auto;
   border-radius: 0.7rem;
   border: 1px solid var(--border);
 }
