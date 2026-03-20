@@ -331,6 +331,8 @@ img {
   border-radius: 0.7rem;
   background: #fff;
   border: 1px solid var(--border);
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .contact-item span {
@@ -338,6 +340,10 @@ img {
   color: var(--muted);
   display: block;
   margin-bottom: 0.35rem;
+}
+
+.contact-item.address {
+  grid-column: 1 / -1;
 }
 
 .site-footer {
