@@ -1,95 +1,139 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neospace Decor - 家居装饰</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="../favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Neospace Decor 提供现代家居装饰与实用型室内产品。">
+  <title>Neospace Decor | 现代家居装饰</title>
+  <link rel="icon" href="../favicon.ico">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <img src="../assets/logo.png" alt="Neospace Decor Logo">
-            </div>
-            <ul>
-                <li><a href="#home">首页</a></li>
-                <li><a href="#products">产品</a></li>
-                <li><a href="#about">关于我们</a></li>
-                <li><a href="#contact">联系我们</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home">
+        <img src="../assets/logo.png" alt="Neospace Decor 标志" width="168" height="42">
+        <span>Neospace Decor</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false">☰</button>
+      <ul class="nav-menu">
+        <li><a href="#home">首页</a></li>
+        <li><a href="#products">产品</a></li>
+        <li><a href="#about">关于我们</a></li>
+        <li><a href="#contact">联系我们</a></li>
+        <li class="lang-switch">
+          <a class="lang-link active" data-lang="cn" href="index.html">CN</a>
+          <span>/</span>
+          <a class="lang-link" data-lang="id" href="../id/index.html">ID</a>
+          <span>/</span>
+          <a class="lang-link" data-lang="en" href="../en/index.html">EN</a>
+        </li>
+      </ul>
+    </div>
+  </header>
 
-    <section id="home" class="hero">
-        <div class="slider">
-            <!-- 轮播图框架 -->
-            <div class="slide active">
-                <img src="../assets/slider/catScratch1.jpg" alt="Cat Scratch 1">
-            </div>
-            <div class="slide">
-                <img src="../assets/slider/catScratch2.jpg" alt="Cat Scratch 2">
-            </div>
-            <div class="slide">
-                <img src="../assets/slider/wallPaper2.png" alt="Wallpaper 2">
-            </div>
-            <div class="slide">
-                <img src="../assets/slider/Wallpaper3.png" alt="Wallpaper 3">
-            </div>
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <article class="hero-copy">
+          <p class="kicker">精选家居系列</p>
+          <h1>让每个角落都更舒适、更有质感</h1>
+          <p>从墙贴、猫抓板到免胶地贴，我们提供兼具实用性与现代风格的家居装饰产品。</p>
+          <a class="cta" href="#products">查看产品</a>
+        </article>
+
+        <div class="slider-box" aria-label="主视觉轮播">
+          <div class="hero-slide active"><img src="../assets/slider/catScratch1.jpg" alt="猫抓板产品展示" loading="eager" width="1280" height="720"></div>
+          <div class="hero-slide"><img src="../assets/slider/catScratch2.jpg" alt="家居装饰展示" loading="lazy" width="1280" height="720"></div>
+          <div class="hero-slide"><img src="../assets/slider/wallPaper2.png" alt="现代墙贴系列" loading="lazy" width="1280" height="720"></div>
+          <div class="slider-dots">
+            <button class="dot active" data-index="0" aria-label="第1张"></button>
+            <button class="dot" data-index="1" aria-label="第2张"></button>
+            <button class="dot" data-index="2" aria-label="第3张"></button>
+          </div>
         </div>
+      </div>
     </section>
 
-    <section id="products" class="products">
-        <h2>我们的产品</h2>
-        <div class="category">
-            <h3>Wallpaper</h3>
-            <div class="slider-container">
-                <button class="prev">&lt;</button>
-                <div class="image-slider">
-                    <div class="product-slide active">
-                        <img src="../assets/products/wallpaper/wallPaper1.png" alt="Wallpaper 1">
-                        <img src="../assets/products/wallpaper/wallPaper2.png" alt="Wallpaper 2">
-                        <img src="../assets/products/wallpaper/Wallpaper3.png" alt="Wallpaper 3">
-                    </div>
-                    <div class="product-slide">
-                        <img src="../assets/products/wallpaper/Wallpaper4.png" alt="Wallpaper 4">
-                    </div>
-                </div>
-                <button class="next">&gt;</button>
+    <section class="section" id="products">
+      <div class="container">
+        <h2 class="section-title">热门产品</h2>
+        <p class="section-sub">适合公寓与家庭场景的快速焕新方案，安装便捷，维护简单。</p>
+
+        <article class="category">
+          <h3>墙贴系列</h3>
+          <div class="product-slider">
+            <button class="slider-btn" data-action="prev" aria-label="上一组墙贴">&#10094;</button>
+            <div class="product-track">
+              <div class="product-page active">
+                <img src="../assets/products/wallpaper/wallPaper1.png" alt="墙贴款式1" loading="lazy" width="900" height="675">
+                <img src="../assets/products/wallpaper/wallPaper2.png" alt="墙贴款式2" loading="lazy" width="900" height="675">
+                <img src="../assets/products/wallpaper/Wallpaper3.png" alt="墙贴款式3" loading="lazy" width="900" height="675">
+              </div>
+              <div class="product-page">
+                <img src="../assets/products/wallpaper/Wallpaper4.png" alt="墙贴款式4" loading="lazy" width="900" height="675">
+              </div>
             </div>
-        </div>
-        <div class="category">
-            <h3>Catscratch</h3>
-            <div class="slider-container">
-                <button class="prev">&lt;</button>
-                <div class="image-slider">
-                    <div class="product-slide active">
-                        <img src="../assets/products/catscratch/catScratch0.png" alt="Catscratch 1">
-                    </div>
-                </div>
-                <button class="next">&gt;</button>
+            <button class="slider-btn" data-action="next" aria-label="下一组墙贴">&#10095;</button>
+          </div>
+        </article>
+
+        <article class="category">
+          <h3>猫抓板</h3>
+          <div class="product-slider">
+            <button class="slider-btn" data-action="prev" aria-label="上一组猫抓板">&#10094;</button>
+            <div class="product-track">
+              <div class="product-page active">
+                <img src="../assets/products/catscratch/catScratch0.png" alt="猫抓板" loading="lazy" width="900" height="675">
+              </div>
             </div>
-        </div>
-        <div class="category">
-            <h3>Floorpaper</h3>
-            <div class="slider-container">
-                <button class="prev">&lt;</button>
-                <div class="image-slider">
-                    <div class="product-slide active">
-                        <img src="../assets/products/floorpaper/floorpaper1.jpg" alt="Floorpaper 1">
-                        <img src="../assets/products/floorpaper/floorpaper2.jpg" alt="Floorpaper 2">
-                    </div>
-                </div>
-                <button class="next">&gt;</button>
+            <button class="slider-btn" data-action="next" aria-label="下一组猫抓板">&#10095;</button>
+          </div>
+        </article>
+
+        <article class="category">
+          <h3>免胶地贴</h3>
+          <div class="product-slider">
+            <button class="slider-btn" data-action="prev" aria-label="上一组地贴">&#10094;</button>
+            <div class="product-track">
+              <div class="product-page active">
+                <img src="../assets/products/floorpaper/floorpaper1.jpg" alt="地贴款式1" loading="lazy" width="900" height="675">
+                <img src="../assets/products/floorpaper/floorpaper2.jpg" alt="地贴款式2" loading="lazy" width="900" height="675">
+              </div>
             </div>
-        </div>
+            <button class="slider-btn" data-action="next" aria-label="下一组地贴">&#10095;</button>
+          </div>
+        </article>
+      </div>
     </section>
 
-    <footer>
-        <p>&copy; 2023 Neospace Decor. All rights reserved.</p>
-    </footer>
+    <section class="section" id="about">
+      <div class="container">
+        <h2 class="section-title">关于 Neospace</h2>
+        <div class="about-card">
+          <p>我们专注于高实用性家居装饰产品，帮助用户以更低成本、更短时间完成空间升级。我们关注品质、耐用性与现代审美。</p>
+        </div>
+      </div>
+    </section>
 
-    <script src="../js/main.js"></script>
+    <section class="section" id="contact">
+      <div class="container">
+        <h2 class="section-title">联系我们</h2>
+        <div class="contact-card">
+          <div class="contact-grid">
+            <div class="contact-item"><span>邮箱</span>sales@neospace-decor.com</div>
+            <div class="contact-item"><span>WhatsApp</span>+62 812-0000-0000</div>
+            <div class="contact-item"><span>服务时间</span>周一至周六，09:00 - 18:00</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">&copy; 2026 Neospace Decor. 版权所有。</div>
+  </footer>
+
+  <script src="../js/main.js"></script>
 </body>
 </html>

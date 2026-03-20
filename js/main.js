@@ -1,128 +1,133 @@
-// 轮播图逻辑
+﻿(function () {
+  const storageKey = "neospace-preferred-lang";
+  const cookieMaxAgeSeconds = 60 * 60 * 24 * 365;
 
-// 1. 顶部 Hero 大图轮播逻辑 (带 Dots 控制)
-let heroIndex = 0;
-const heroSlides = document.querySelectorAll('.hero .slide');
-const dots = document.querySelectorAll('.dot');
-let heroTimer; // 用于清理定时器
-
-function showHeroSlide(index) {
-    // 移除所有激活状态
-    heroSlides.forEach(s => s.classList.remove('active'));
-    dots.forEach(d => d.classList.remove('active'));
-
-    // 设置当前激活项
-    heroIndex = index;
-    if (heroIndex >= heroSlides.length) heroIndex = 0;
-    if (heroIndex < 0) heroIndex = heroSlides.length - 1;
-
-    heroSlides[heroIndex].classList.add('active');
-    dots[heroIndex].classList.add('active');
-}
-
-// 自动切换函数
-function startAutoPlay() {
-    heroTimer = setInterval(() => {
-        showHeroSlide(heroIndex + 1);
-    }, 5000);
-}
-
-// 点击点跳转函数
-function currentSlide(n) {
-    clearInterval(heroTimer); // 用户手动点击后，重置定时器，防止连续跳动
-    showHeroSlide(n);
-    startAutoPlay(); // 重新开始计时
-}
-
-// 初始化
-startAutoPlay();
-
-// 2. 产品分类图片切换逻辑 (保持不变)
-function moveSlide(button, direction) {
-    const container = button.parentElement.querySelector('.image-slider');
-    const slides = container.querySelectorAll('.product-slide');
-    let activeIndex = Array.from(slides).findIndex(s => s.classList.contains('active'));
-
-    slides[activeIndex].classList.remove('active');
-    activeIndex = (activeIndex + direction + slides.length) % slides.length;
-    slides[activeIndex].classList.add('active');
-}
-
-
-
-
-let currentSlide = 0;
-const slides = document.querySelectorAll('.slide');
-
-function showSlide(index) {
-    slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === index);
-    });
-}
-
-function nextSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
-    showSlide(currentSlide);
-}
-
-function prevSlide() {
-    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-    showSlide(currentSlide);
-}
-
-// 自动轮播
-setInterval(nextSlide, 5000);
-
-// 导航栏滚动变色
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    if (window.scrollY > 100) {
-        header.style.backgroundColor = 'rgba(44, 62, 80, 0.95)';
-    } else {
-        header.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+  function setPreferredLanguage(language) {
+    try {
+      localStorage.setItem(storageKey, language);
+    } catch (error) {
+      // Ignore storage errors (private mode, blocked storage).
     }
-});
+    document.cookie = `${storageKey}=${encodeURIComponent(language)}; Path=/; Max-Age=${cookieMaxAgeSeconds}; SameSite=Lax`;
+  }
 
-// 平滑滚动到锚点
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+  function bindLanguageLinks() {
+    document.querySelectorAll(".lang-link").forEach((link) => {
+      link.addEventListener("click", () => {
+        const lang = link.getAttribute("data-lang");
+        if (lang) setPreferredLanguage(lang);
+      });
     });
-});
+  }
 
-// 初始化
-document.addEventListener('DOMContentLoaded', () => {
-    showSlide(currentSlide);
-});
+  function initMobileNav() {
+    const toggle = document.querySelector(".nav-toggle");
+    const menu = document.querySelector(".nav-menu");
+    if (!toggle || !menu) return;
 
-// 产品滑块逻辑
-document.querySelectorAll('.slider-container').forEach(container => {
-    const slider = container.querySelector('.image-slider');
-    const slides = slider.querySelectorAll('.product-slide');
-    let currentIndex = 0;
+    toggle.addEventListener("click", () => {
+      const open = menu.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", String(open));
+    });
 
-    const prevBtn = container.querySelector('.prev');
-    const nextBtn = container.querySelector('.next');
+    menu.querySelectorAll("a").forEach((anchor) => {
+      anchor.addEventListener("click", () => {
+        menu.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
 
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
-        });
+  function initHeroSlider() {
+    const slides = Array.from(document.querySelectorAll(".hero-slide"));
+    const dots = Array.from(document.querySelectorAll(".dot"));
+    if (!slides.length) return;
+
+    let index = 0;
+    let timer = null;
+
+    function render(nextIndex) {
+      index = (nextIndex + slides.length) % slides.length;
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === index);
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+      });
     }
 
-    prevBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-        showSlide(currentIndex);
+    function restart() {
+      if (timer) clearInterval(timer);
+      timer = setInterval(() => render(index + 1), 5000);
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        const next = Number(dot.getAttribute("data-index"));
+        if (!Number.isNaN(next)) {
+          render(next);
+          restart();
+        }
+      });
     });
 
-    nextBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % slides.length;
-        showSlide(currentIndex);
+    render(0);
+    restart();
+  }
+
+  function initProductSliders() {
+    document.querySelectorAll(".product-slider").forEach((slider) => {
+      const pages = Array.from(slider.querySelectorAll(".product-page"));
+      const prev = slider.querySelector('[data-action="prev"]');
+      const next = slider.querySelector('[data-action="next"]');
+      if (!pages.length || !prev || !next) return;
+
+      let index = 0;
+
+      const render = () => {
+        pages.forEach((page, i) => {
+          page.classList.toggle("active", i === index);
+        });
+      };
+
+      prev.addEventListener("click", () => {
+        index = (index - 1 + pages.length) % pages.length;
+        render();
+      });
+
+      next.addEventListener("click", () => {
+        index = (index + 1) % pages.length;
+        render();
+      });
+
+      render();
     });
+  }
 
-    showSlide(currentIndex);
-});
+  function initSmoothScroll() {
+    const header = document.querySelector(".site-header");
+    const headerHeight = header ? header.offsetHeight : 0;
 
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", (event) => {
+        const targetId = anchor.getAttribute("href");
+        if (!targetId || targetId === "#") return;
+
+        const target = document.querySelector(targetId);
+        if (!target) return;
+
+        event.preventDefault();
+        const y = target.getBoundingClientRect().top + window.scrollY - headerHeight - 8;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    bindLanguageLinks();
+    initMobileNav();
+    initHeroSlider();
+    initProductSliders();
+    initSmoothScroll();
+  });
+})();
