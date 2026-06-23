@@ -15,21 +15,26 @@
         <img src="../assets/logo.svg" alt="Neospace Decor" width="168" height="42">
         <span>Content Studio</span>
       </a>
-      <p class="sidebar-copy">编辑首页内容并发布到网站。</p>
-      <nav class="admin-nav" aria-label="内容分区">
-        <a href="#hero">首屏文案</a>
-        <a href="#slides">首页轮播</a>
-        <a href="#products">商品系列</a>
-        <a href="#about">About 图文块</a>
+      <p class="sidebar-copy" data-i18n="sidebarCopy">编辑首页内容并发布到网站。</p>
+      <nav class="admin-nav" aria-label="内容分区" data-i18n-aria-label="contentSections">
+        <a href="#hero" data-i18n="navHero">首屏文案</a>
+        <a href="#slides" data-i18n="navSlides">首页轮播</a>
+        <a href="#products" data-i18n="navProducts">商品系列</a>
+        <a href="#about" data-i18n="navAbout">About 图文块</a>
       </nav>
       <div class="sidebar-footer">
-        <label for="locale-select">编辑语言</label>
+        <label for="ui-language-select" data-i18n="interfaceLanguage">界面语言</label>
+        <select id="ui-language-select">
+          <option value="cn">中文</option>
+          <option value="id">Bahasa Indonesia</option>
+        </select>
+        <label for="locale-select" data-i18n="contentLanguage">编辑内容语言</label>
         <select id="locale-select">
           <option value="en">English</option>
           <option value="cn">中文</option>
           <option value="id">Bahasa Indonesia</option>
         </select>
-        <a class="view-site" id="view-site" href="../en/index.html" target="_blank" rel="noopener noreferrer">查看前台</a>
+        <a class="view-site" id="view-site" href="../en/index.html" target="_blank" rel="noopener noreferrer" data-i18n="viewSite">查看前台</a>
       </div>
     </aside>
 
@@ -37,7 +42,7 @@
       <header class="admin-header">
         <div>
           <p class="eyebrow">NEOSPACE DECOR</p>
-          <h1>首页内容管理</h1>
+          <h1 data-i18n="pageTitle">首页内容管理</h1>
         </div>
         <p class="publish-state" id="publish-state" role="status">正在读取内容...</p>
       </header>
@@ -45,39 +50,39 @@
       <form id="content-form" novalidate>
         <section class="editor-section" id="hero">
           <div class="section-heading">
-            <div><p class="eyebrow">01 / HERO</p><h2>首屏文案</h2></div>
-            <p>编辑标题、简介和跳转按钮。</p>
+            <div><p class="eyebrow">01 / HERO</p><h2 data-i18n="navHero">首屏文案</h2></div>
+            <p data-i18n="heroDescription">编辑标题、简介和跳转按钮。</p>
           </div>
           <div class="editor-card" id="hero-fields"></div>
         </section>
 
         <section class="editor-section" id="slides">
           <div class="section-heading">
-            <div><p class="eyebrow">02 / CAROUSEL</p><h2>首页轮播</h2></div>
-            <button class="button button-secondary" type="button" id="add-slide">添加轮播图</button>
+            <div><p class="eyebrow">02 / CAROUSEL</p><h2 data-i18n="navSlides">首页轮播</h2></div>
+            <button class="button button-secondary" type="button" id="add-slide" data-i18n="addSlide">添加轮播图</button>
           </div>
           <div class="sortable-list" id="slides-list"></div>
         </section>
 
         <section class="editor-section" id="products">
           <div class="section-heading">
-            <div><p class="eyebrow">03 / PRODUCTS</p><h2>商品系列</h2></div>
-            <button class="button button-secondary" type="button" id="add-series">添加商品系列</button>
+            <div><p class="eyebrow">03 / PRODUCTS</p><h2 data-i18n="navProducts">商品系列</h2></div>
+            <button class="button button-secondary" type="button" id="add-series" data-i18n="addSeries">添加商品系列</button>
           </div>
           <div class="sortable-list" id="series-list"></div>
         </section>
 
         <section class="editor-section" id="about">
           <div class="section-heading">
-            <div><p class="eyebrow">04 / ABOUT</p><h2>About 图文块</h2></div>
-            <button class="button button-secondary" type="button" id="add-about">添加图文块</button>
+            <div><p class="eyebrow">04 / ABOUT</p><h2 data-i18n="navAbout">About 图文块</h2></div>
+            <button class="button button-secondary" type="button" id="add-about" data-i18n="addAbout">添加图文块</button>
           </div>
           <div class="sortable-list" id="about-list"></div>
         </section>
 
         <footer class="save-bar">
-          <p>图片支持 JPEG、PNG、WebP，单个文件最大 10 MB。</p>
-          <button class="button button-primary" type="submit" id="save-button">发布首页内容</button>
+          <p data-i18n="uploadHint">图片支持 JPEG、PNG、WebP，单个文件最大 10 MB。</p>
+          <button class="button button-primary" type="submit" id="save-button" data-i18n="saveAndPublish">发布首页内容</button>
         </footer>
       </form>
     </main>
