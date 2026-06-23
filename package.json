@@ -1,0 +1,12 @@
+{
+  "name": "neospace-decor-web",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler pages dev .",
+    "db:migrate:local": "wrangler d1 migrations apply neospace-content --local",
+    "db:migrate:remote": "wrangler d1 migrations apply neospace-content --remote"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

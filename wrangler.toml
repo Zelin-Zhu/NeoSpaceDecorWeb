@@ -1,0 +1,13 @@
+name = "neospace-decor-web"
+compatibility_date = "2025-09-01"
+pages_build_output_dir = "."
+
+[[d1_databases]]
+binding = "DB"
+database_name = "neospace-content"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "neospace-media"

@@ -39,20 +39,34 @@
   }
 
   function initHeroSlider() {
+    const slider = document.querySelector(".slider-shell");
     const slides = Array.from(document.querySelectorAll(".hero-slide"));
     const dots = Array.from(document.querySelectorAll(".dot"));
-    if (!slides.length) return;
+    if (!slider || !slides.length) return;
+
+    slider._cleanupHeroSlider?.();
 
     let index = 0;
     let timer = null;
 
     function render(nextIndex) {
       index = (nextIndex + slides.length) % slides.length;
+      const previous = (index - 1 + slides.length) % slides.length;
+      const next = (index + 1) % slides.length;
+
       slides.forEach((slide, i) => {
         slide.classList.toggle("active", i === index);
+        slide.classList.toggle("is-prev", i === previous);
+        slide.classList.toggle("is-next", i === next);
+        slide.setAttribute("aria-hidden", String(i !== index));
       });
       dots.forEach((dot, i) => {
         dot.classList.toggle("active", i === index);
+        if (i === index) {
+          dot.setAttribute("aria-current", "true");
+        } else {
+          dot.removeAttribute("aria-current");
+        }
       });
     }
 
@@ -61,18 +75,25 @@
       timer = setInterval(() => render(index + 1), 5000);
     }
 
-    dots.forEach((dot) => {
-      dot.addEventListener("click", () => {
+    const dotHandlers = dots.map((dot) => {
+      const handleClick = () => {
         const next = Number(dot.getAttribute("data-index"));
         if (!Number.isNaN(next)) {
           render(next);
           restart();
         }
-      });
+      };
+      dot.addEventListener("click", handleClick);
+      return { dot, handleClick };
     });
 
     render(0);
     restart();
+
+    slider._cleanupHeroSlider = () => {
+      if (timer) clearInterval(timer);
+      dotHandlers.forEach(({ dot, handleClick }) => dot.removeEventListener("click", handleClick));
+    };
   }
 
   function initProductSliders() {
@@ -82,6 +103,8 @@
       const next = slider.querySelector('[data-action="next"]');
       if (!pages.length || !prev || !next) return;
 
+      slider._cleanupProductSlider?.();
+
       let index = 0;
 
       const render = () => {
@@ -90,17 +113,25 @@
         });
       };
 
-      prev.addEventListener("click", () => {
+      const handlePrevious = () => {
         index = (index - 1 + pages.length) % pages.length;
         render();
-      });
+      };
 
-      next.addEventListener("click", () => {
+      const handleNext = () => {
         index = (index + 1) % pages.length;
         render();
-      });
+      };
+
+      prev.addEventListener("click", handlePrevious);
+      next.addEventListener("click", handleNext);
 
       render();
+
+      slider._cleanupProductSlider = () => {
+        prev.removeEventListener("click", handlePrevious);
+        next.removeEventListener("click", handleNext);
+      };
     });
   }
 
@@ -122,6 +153,13 @@
       });
     });
   }
+
+  window.NeoSpace = {
+    refreshContentComponents() {
+      initHeroSlider();
+      initProductSliders();
+    },
+  };
 
   document.addEventListener("DOMContentLoaded", () => {
     bindLanguageLinks();

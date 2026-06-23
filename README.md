@@ -28,6 +28,18 @@ This project is ready for Cloudflare Pages:
 - CSS3
 - Vanilla JavaScript
 - Cloudflare Pages Functions
+- Cloudflare D1 content database
+- Cloudflare R2 media storage
+
+## Content API
+
+The public pages retain their static content as a resilient fallback. When deployed with D1 configured, `js/content.js` loads the same page structure from:
+
+```text
+GET /api/public/home?locale=en|cn|id
+```
+
+The initial migration models editable hero slides, product series and images, reusable About blocks, translations, and media references. Existing repository images are seeded as static media URLs, while uploaded media can later use R2 through `/api/media/:id`.
 
 ## Local test
 
@@ -55,6 +67,24 @@ npx wrangler pages dev .
 ```
 
 Then open `http://localhost:8788/` and verify `/` redirects by country (or by language cookie).
+
+### 3) Local D1 content API test
+
+Install the local development dependency once, then apply the migration and start Pages development:
+
+```powershell
+npm install
+npm run db:migrate:local
+npm run dev
+```
+
+Open `http://localhost:8788/en/index.html`. The page should load content from the local D1 database and fall back to static markup whenever the API is unavailable.
+
+Before deploying, replace `database_id` in `wrangler.toml` with the real D1 ID, create the `neospace-media` R2 bucket, and apply the migration remotely:
+
+```powershell
+npm run db:migrate:remote
+```
 
 ## Key improvements already done
 

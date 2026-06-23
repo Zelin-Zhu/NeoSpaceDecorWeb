@@ -8,7 +8,7 @@
   <link rel="icon" href="../favicon.ico">
   <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
+<body data-locale="cn">
   <header class="site-header">
     <div class="container nav-wrap">
       <a class="brand" href="#home">
@@ -34,7 +34,7 @@
 
   <main>
     <section class="hero" id="home">
-      <div class="container hero-grid">
+      <div class="container hero-stack">
         <article class="hero-copy">
           <p class="kicker">精选家居系列</p>
           <h1>让每个角落都更舒适、更有质感</h1>
@@ -42,14 +42,16 @@
           <a class="cta" href="#products">查看产品</a>
         </article>
 
-        <div class="slider-box" aria-label="主视觉轮播">
-          <div class="hero-slide active"><img src="../assets/slider/catScratch1.jpg" alt="猫抓板产品展示" loading="eager" width="1280" height="720"></div>
-          <div class="hero-slide"><img src="../assets/slider/catScratch2.jpg" alt="家居装饰展示" loading="lazy" width="1280" height="720"></div>
-          <div class="hero-slide"><img src="../assets/slider/wallPaper2.png" alt="现代墙贴系列" loading="lazy" width="1280" height="720"></div>
+        <div class="slider-shell" aria-label="主视觉轮播">
+          <div class="slider-box">
+            <div class="hero-slide active"><img src="../assets/slider/catScratch1.jpg" alt="猫抓板产品展示" loading="eager" width="1280" height="720"></div>
+            <div class="hero-slide"><img src="../assets/slider/catScratch2.jpg" alt="家居装饰展示" loading="lazy" width="1280" height="720"></div>
+            <div class="hero-slide"><img src="../assets/slider/wallPaper2.png" alt="现代墙贴系列" loading="lazy" width="1280" height="720"></div>
+          </div>
           <div class="slider-dots">
-            <button class="dot active" data-index="0" aria-label="第1张"></button>
-            <button class="dot" data-index="1" aria-label="第2张"></button>
-            <button class="dot" data-index="2" aria-label="第3张"></button>
+            <button class="dot active" type="button" data-index="0" aria-label="第1张" aria-current="true"></button>
+            <button class="dot" type="button" data-index="1" aria-label="第2张"></button>
+            <button class="dot" type="button" data-index="2" aria-label="第3张"></button>
           </div>
         </div>
       </div>
@@ -110,8 +112,51 @@
     <section class="section" id="about">
       <div class="container">
         <h2 class="section-title">关于 Neospace</h2>
-        <div class="about-card">
-          <p>我们专注于高实用性家居装饰产品，帮助用户以更低成本、更短时间完成空间升级。我们关注品质、耐用性与现代审美。</p>
+        <div class="about-story">
+          <article class="about-block">
+            <div class="about-copy">
+              <p class="about-index">01 / 品牌理念</p>
+              <h3>为每一个日常角落，增添更好的细节。</h3>
+              <p>Neospace Decor 关注那些影响空间感受的细小表面，以简洁、实用的方式，让家居焕新变得更轻松。</p>
+              <div class="about-tags" aria-label="品牌关注点">
+                <span>灵活搭配</span>
+                <span>易于日常使用</span>
+              </div>
+            </div>
+            <figure class="about-media">
+              <img src="../assets/slider/wallPaper2.png" alt="明亮室内空间中的现代墙面装饰" loading="lazy" width="1280" height="720">
+            </figure>
+          </article>
+
+          <article class="about-block reverse">
+            <div class="about-copy">
+              <p class="about-index">02 / 产品构思</p>
+              <h3>从每个角度考虑实用与美感。</h3>
+              <p>从材料选择到日常使用，每个系列都围绕便捷安装、长久使用，以及自然融入居住空间的外观而设计。</p>
+              <div class="about-tags" aria-label="产品理念">
+                <span>用心选材</span>
+                <span>适合日常</span>
+              </div>
+            </div>
+            <figure class="about-media">
+              <img src="../assets/slider/catScratch2.jpg" alt="Neospace Decor 产品细节展示" loading="lazy" width="1280" height="720">
+            </figure>
+          </article>
+
+          <article class="about-block">
+            <div class="about-copy">
+              <p class="about-index">03 / 空间变化</p>
+              <h3>微小改变，也能重新定义一个角落。</h3>
+              <p>我们的产品系列帮助人们塑造更有个人感的空间，无需将一次焕新变成复杂的工程。</p>
+              <div class="about-tags" aria-label="客户体验">
+                <span>个性空间</span>
+                <span>轻松焕新</span>
+              </div>
+            </div>
+            <figure class="about-media">
+              <img src="../assets/slider/catScratch1.jpg" alt="家居场景中的猫抓板产品展示" loading="lazy" width="1280" height="720">
+            </figure>
+          </article>
         </div>
       </div>
     </section>
@@ -136,6 +181,7 @@
   </footer>
 
   <script src="../js/main.js"></script>
+  <script src="../js/content.js"></script>
 </body>
 </html>
 

@@ -8,7 +8,7 @@
   <link rel="icon" href="../favicon.ico">
   <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
+<body data-locale="en">
   <header class="site-header">
     <div class="container nav-wrap">
       <a class="brand" href="#home">
@@ -34,7 +34,7 @@
 
   <main>
     <section class="hero" id="home">
-      <div class="container hero-grid">
+      <div class="container hero-stack">
         <article class="hero-copy">
           <p class="kicker">Curated Interior Collection</p>
           <h1>Design Better Corners for Everyday Living</h1>
@@ -42,14 +42,16 @@
           <a class="cta" href="#products">Explore Products</a>
         </article>
 
-        <div class="slider-box" aria-label="Featured products slider">
-          <div class="hero-slide active"><img src="../assets/slider/catScratch1.jpg" alt="Cat scratching product" loading="eager" width="1280" height="720"></div>
-          <div class="hero-slide"><img src="../assets/slider/catScratch2.jpg" alt="Wall decoration setup" loading="lazy" width="1280" height="720"></div>
-          <div class="hero-slide"><img src="../assets/slider/wallPaper2.png" alt="Modern wallpaper collection" loading="lazy" width="1280" height="720"></div>
+        <div class="slider-shell" aria-label="Featured products slider">
+          <div class="slider-box">
+            <div class="hero-slide active"><img src="../assets/slider/catScratch1.jpg" alt="Cat scratching product" loading="eager" width="1280" height="720"></div>
+            <div class="hero-slide"><img src="../assets/slider/catScratch2.jpg" alt="Wall decoration setup" loading="lazy" width="1280" height="720"></div>
+            <div class="hero-slide"><img src="../assets/slider/wallPaper2.png" alt="Modern wallpaper collection" loading="lazy" width="1280" height="720"></div>
+          </div>
           <div class="slider-dots">
-            <button class="dot active" data-index="0" aria-label="Slide 1"></button>
-            <button class="dot" data-index="1" aria-label="Slide 2"></button>
-            <button class="dot" data-index="2" aria-label="Slide 3"></button>
+            <button class="dot active" type="button" data-index="0" aria-label="Slide 1" aria-current="true"></button>
+            <button class="dot" type="button" data-index="1" aria-label="Slide 2"></button>
+            <button class="dot" type="button" data-index="2" aria-label="Slide 3"></button>
           </div>
         </div>
       </div>
@@ -110,8 +112,51 @@
     <section class="section" id="about">
       <div class="container">
         <h2 class="section-title">About Neospace</h2>
-        <div class="about-card">
-          <p>We help customers decorate quickly with practical products that are easy to install and maintain. Our focus is quality, durability, and a cleaner daily living space.</p>
+        <div class="about-story">
+          <article class="about-block">
+            <div class="about-copy">
+              <p class="about-index">01 / THE IDEA</p>
+              <h3>Better details for everyday spaces.</h3>
+              <p>Neospace Decor looks at the small surfaces that shape how a room feels, then makes them easier to refresh with a clean and practical approach.</p>
+              <div class="about-tags" aria-label="Our focus">
+                <span>Flexible</span>
+                <span>Easy to live with</span>
+              </div>
+            </div>
+            <figure class="about-media">
+              <img src="../assets/slider/wallPaper2.png" alt="Modern wall decoration in a bright interior" loading="lazy" width="1280" height="720">
+            </figure>
+          </article>
+
+          <article class="about-block reverse">
+            <div class="about-copy">
+              <p class="about-index">02 / THE MAKING</p>
+              <h3>Practical products, considered from every angle.</h3>
+              <p>From materials to everyday handling, each collection is shaped around simple installation, lasting use, and a finish that fits naturally into the home.</p>
+              <div class="about-tags" aria-label="Product approach">
+                <span>Thoughtful materials</span>
+                <span>Everyday ready</span>
+              </div>
+            </div>
+            <figure class="about-media">
+              <img src="../assets/slider/catScratch2.jpg" alt="Neospace Decor product detail in use" loading="lazy" width="1280" height="720">
+            </figure>
+          </article>
+
+          <article class="about-block">
+            <div class="about-copy">
+              <p class="about-index">03 / THE RESULT</p>
+              <h3>Small changes can reshape a whole corner.</h3>
+              <p>Our collections help people make a space feel more personal without turning an update into a complicated project.</p>
+              <div class="about-tags" aria-label="Customer benefit">
+                <span>Personal spaces</span>
+                <span>Simple updates</span>
+              </div>
+            </div>
+            <figure class="about-media">
+              <img src="../assets/slider/catScratch1.jpg" alt="Cat scratching product displayed in a home" loading="lazy" width="1280" height="720">
+            </figure>
+          </article>
         </div>
       </div>
     </section>
@@ -136,6 +181,7 @@
   </footer>
 
   <script src="../js/main.js"></script>
+  <script src="../js/content.js"></script>
 </body>
 </html>
 

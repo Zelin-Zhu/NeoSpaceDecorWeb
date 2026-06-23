@@ -8,7 +8,7 @@
   <link rel="icon" href="../favicon.ico">
   <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
+<body data-locale="id">
   <header class="site-header">
     <div class="container nav-wrap">
       <a class="brand" href="#home">
@@ -34,7 +34,7 @@
 
   <main>
     <section class="hero" id="home">
-      <div class="container hero-grid">
+      <div class="container hero-stack">
         <article class="hero-copy">
           <p class="kicker">Koleksi Interior Pilihan</p>
           <h1>Wujudkan Sudut Rumah yang Lebih Nyaman</h1>
@@ -42,14 +42,16 @@
           <a class="cta" href="#products">Lihat Produk</a>
         </article>
 
-        <div class="slider-box" aria-label="Slider produk unggulan">
-          <div class="hero-slide active"><img src="../assets/slider/catScratch1.jpg" alt="Produk cat scratching" loading="eager" width="1280" height="720"></div>
-          <div class="hero-slide"><img src="../assets/slider/catScratch2.jpg" alt="Produk dekorasi dinding" loading="lazy" width="1280" height="720"></div>
-          <div class="hero-slide"><img src="../assets/slider/wallPaper2.png" alt="Koleksi wallpaper modern" loading="lazy" width="1280" height="720"></div>
+        <div class="slider-shell" aria-label="Slider produk unggulan">
+          <div class="slider-box">
+            <div class="hero-slide active"><img src="../assets/slider/catScratch1.jpg" alt="Produk cat scratching" loading="eager" width="1280" height="720"></div>
+            <div class="hero-slide"><img src="../assets/slider/catScratch2.jpg" alt="Produk dekorasi dinding" loading="lazy" width="1280" height="720"></div>
+            <div class="hero-slide"><img src="../assets/slider/wallPaper2.png" alt="Koleksi wallpaper modern" loading="lazy" width="1280" height="720"></div>
+          </div>
           <div class="slider-dots">
-            <button class="dot active" data-index="0" aria-label="Slide 1"></button>
-            <button class="dot" data-index="1" aria-label="Slide 2"></button>
-            <button class="dot" data-index="2" aria-label="Slide 3"></button>
+            <button class="dot active" type="button" data-index="0" aria-label="Slide 1" aria-current="true"></button>
+            <button class="dot" type="button" data-index="1" aria-label="Slide 2"></button>
+            <button class="dot" type="button" data-index="2" aria-label="Slide 3"></button>
           </div>
         </div>
       </div>
@@ -110,8 +112,51 @@
     <section class="section" id="about">
       <div class="container">
         <h2 class="section-title">Tentang Neospace</h2>
-        <div class="about-card">
-          <p>Kami membantu pelanggan mempercantik rumah dengan produk yang mudah dipasang, awet, dan nyaman dipakai sehari-hari. Fokus kami adalah kualitas dan estetika modern.</p>
+        <div class="about-story">
+          <article class="about-block">
+            <div class="about-copy">
+              <p class="about-index">01 / GAGASAN</p>
+              <h3>Detail yang lebih baik untuk ruang sehari-hari.</h3>
+              <p>Neospace Decor memperhatikan permukaan kecil yang membentuk suasana ruang, lalu menjadikannya lebih mudah diperbarui lewat pendekatan yang bersih dan praktis.</p>
+              <div class="about-tags" aria-label="Fokus kami">
+                <span>Fleksibel</span>
+                <span>Nyaman digunakan</span>
+              </div>
+            </div>
+            <figure class="about-media">
+              <img src="../assets/slider/wallPaper2.png" alt="Dekorasi dinding modern di interior yang terang" loading="lazy" width="1280" height="720">
+            </figure>
+          </article>
+
+          <article class="about-block reverse">
+            <div class="about-copy">
+              <p class="about-index">02 / PROSES</p>
+              <h3>Produk praktis yang dipikirkan dari setiap sisi.</h3>
+              <p>Dari bahan hingga cara penggunaan sehari-hari, setiap koleksi dirancang untuk pemasangan sederhana, pemakaian tahan lama, dan tampilan yang menyatu dengan rumah.</p>
+              <div class="about-tags" aria-label="Pendekatan produk">
+                <span>Bahan pilihan</span>
+                <span>Siap untuk sehari-hari</span>
+              </div>
+            </div>
+            <figure class="about-media">
+              <img src="../assets/slider/catScratch2.jpg" alt="Detail produk Neospace Decor saat digunakan" loading="lazy" width="1280" height="720">
+            </figure>
+          </article>
+
+          <article class="about-block">
+            <div class="about-copy">
+              <p class="about-index">03 / HASIL</p>
+              <h3>Perubahan kecil dapat membentuk ulang satu sudut ruang.</h3>
+              <p>Koleksi kami membantu orang membuat ruang terasa lebih personal tanpa menjadikan pembaruan rumah sebagai proyek yang rumit.</p>
+              <div class="about-tags" aria-label="Manfaat pelanggan">
+                <span>Ruang personal</span>
+                <span>Pembaruan sederhana</span>
+              </div>
+            </div>
+            <figure class="about-media">
+              <img src="../assets/slider/catScratch1.jpg" alt="Produk cat scratching di dalam rumah" loading="lazy" width="1280" height="720">
+            </figure>
+          </article>
         </div>
       </div>
     </section>
@@ -136,6 +181,7 @@
   </footer>
 
   <script src="../js/main.js"></script>
+  <script src="../js/content.js"></script>
 </body>
 </html>
 
