@@ -1,6 +1,10 @@
-name = "neospace-decor-web"
+name = "neospacedecorweb"
 compatibility_date = "2025-09-01"
-pages_build_output_dir = "."
+main = "index.js"
+
+[assets]
+directory = "."
+binding = "ASSETS"
 
 [[d1_databases]]
 binding = "DB"

@@ -1,0 +1,12 @@
+.git/
+.wrangler/
+node_modules/
+.agents/
+migrations/
+functions/
+index.js
+package.json
+package-lock.json
+wrangler.toml
+README.md
+.gitignore
