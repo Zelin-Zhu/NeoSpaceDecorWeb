@@ -106,29 +106,73 @@
       slider._cleanupProductSlider?.();
 
       let index = 0;
+      let cleanupTimer = null;
 
-      const render = () => {
-        pages.forEach((page, i) => {
-          page.classList.toggle("active", i === index);
+      const resetPageClasses = (page) => {
+        page.classList.remove(
+          "active",
+          "is-entering-from-left",
+          "is-entering-from-right",
+          "is-leaving-to-left",
+          "is-leaving-to-right",
+          "is-next-preview"
+        );
+      };
+
+      const showNextPreview = () => {
+        if (pages.length < 2) return;
+        const previewIndex = (index + 1) % pages.length;
+        pages[previewIndex].classList.add("is-next-preview");
+      };
+
+      const render = (nextIndex, direction = 0) => {
+        const previousIndex = index;
+        index = (nextIndex + pages.length) % pages.length;
+        if (cleanupTimer) window.clearTimeout(cleanupTimer);
+
+        if (previousIndex === index || direction === 0) {
+          pages.forEach(resetPageClasses);
+          pages[index].classList.add("active");
+          showNextPreview();
+          return;
+        }
+
+        const previous = pages[previousIndex];
+        const next = pages[index];
+        pages.forEach((page) => {
+          if (page !== previous && page !== next) resetPageClasses(page);
         });
+        resetPageClasses(previous);
+        resetPageClasses(next);
+        previous.classList.add(direction > 0 ? "is-leaving-to-left" : "is-leaving-to-right");
+        next.classList.add(direction > 0 ? "is-entering-from-right" : "is-entering-from-left");
+
+        window.requestAnimationFrame(() => {
+          next.classList.remove("is-entering-from-left", "is-entering-from-right");
+          next.classList.add("active");
+        });
+
+        cleanupTimer = window.setTimeout(() => {
+          resetPageClasses(previous);
+          showNextPreview();
+        }, 520);
       };
 
       const handlePrevious = () => {
-        index = (index - 1 + pages.length) % pages.length;
-        render();
+        render(index - 1, -1);
       };
 
       const handleNext = () => {
-        index = (index + 1) % pages.length;
-        render();
+        render(index + 1, 1);
       };
 
       prev.addEventListener("click", handlePrevious);
       next.addEventListener("click", handleNext);
 
-      render();
+      render(0);
 
       slider._cleanupProductSlider = () => {
+        if (cleanupTimer) window.clearTimeout(cleanupTimer);
         prev.removeEventListener("click", handlePrevious);
         next.removeEventListener("click", handleNext);
       };

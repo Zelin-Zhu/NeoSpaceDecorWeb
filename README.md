@@ -80,6 +80,12 @@ npm run dev
 
 Open `http://localhost:8788/en/index.html`. The page should load content from the local D1 database and fall back to static markup whenever the API is unavailable.
 
+### 4) Local admin content editing
+
+Open `http://localhost:8788/admin/index.html`. Local Pages development automatically permits the admin API. Upload images, edit the selected language, then use `发布首页内容`; reload the matching public page to see the published result.
+
+In production, create a Cloudflare Access application that protects both `/admin/*` and `/api/admin/*`. The write APIs reject requests that do not carry the `CF-Access-Authenticated-User-Email` header injected by Access.
+
 Before deploying, replace `database_id` in `wrangler.toml` with the real D1 ID, create the `neospace-media` R2 bucket, and apply the migration remotely:
 
 ```powershell

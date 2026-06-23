@@ -28,43 +28,65 @@ function parseTags(tagsJson) {
   }
 }
 
-export async function getHomeContent(db, locale) {
+export async function getHomeContent(db, locale, options = {}) {
+  const includeMediaIds = options.includeMediaIds === true;
   const [hero, sectionsResult, slidesResult, seriesResult, seriesImagesResult, aboutResult] = await Promise.all([
     db.prepare(
-      "SELECT kicker, title, description, cta_label AS ctaLabel FROM home_hero_translations WHERE locale = ?"
+      `SELECT COALESCE(current.kicker, fallback.kicker) AS kicker,
+              COALESCE(current.title, fallback.title) AS title,
+              COALESCE(current.description, fallback.description) AS description,
+              COALESCE(current.cta_label, fallback.cta_label) AS ctaLabel
+       FROM home_hero_translations fallback
+       LEFT JOIN home_hero_translations current ON current.locale = ?
+       WHERE fallback.locale = 'en'`
     ).bind(locale).first(),
     db.prepare(
-      "SELECT section_key AS sectionKey, title, subtitle FROM home_section_translations WHERE locale = ?"
+      `SELECT fallback.section_key AS sectionKey, COALESCE(current.title, fallback.title) AS title,
+              COALESCE(current.subtitle, fallback.subtitle) AS subtitle
+       FROM home_section_translations fallback
+       LEFT JOIN home_section_translations current ON current.section_key = fallback.section_key AND current.locale = ?
+       WHERE fallback.locale = 'en'`
     ).bind(locale).all(),
     db.prepare(
-      `SELECT hs.id, hs.sort_order AS sortOrder, ma.id AS media_id, ma.public_url, hst.alt_text AS alt
+      `SELECT hs.id, hs.sort_order AS sortOrder, ma.id AS media_id, ma.public_url,
+              COALESCE(current.alt_text, fallback.alt_text, '') AS alt
        FROM home_slides hs
        JOIN media_assets ma ON ma.id = hs.media_id
-       JOIN home_slide_translations hst ON hst.slide_id = hs.id AND hst.locale = ?
+       LEFT JOIN home_slide_translations current ON current.slide_id = hs.id AND current.locale = ?
+       LEFT JOIN home_slide_translations fallback ON fallback.slide_id = hs.id AND fallback.locale = 'en'
        WHERE hs.status = 'published' AND ma.deleted_at IS NULL
        ORDER BY hs.sort_order, hs.id`
     ).bind(locale).all(),
     db.prepare(
-      `SELECT ps.id, ps.sort_order AS sortOrder, pst.title, pst.description
+      `SELECT ps.id, ps.sort_order AS sortOrder, COALESCE(current.title, fallback.title, '') AS title,
+              COALESCE(current.description, fallback.description, '') AS description
        FROM product_series ps
-       JOIN product_series_translations pst ON pst.series_id = ps.id AND pst.locale = ?
+       LEFT JOIN product_series_translations current ON current.series_id = ps.id AND current.locale = ?
+       LEFT JOIN product_series_translations fallback ON fallback.series_id = ps.id AND fallback.locale = 'en'
        WHERE ps.status = 'published'
        ORDER BY ps.sort_order, ps.id`
     ).bind(locale).all(),
     db.prepare(
-      `SELECT psi.id, psi.series_id AS seriesId, psi.sort_order AS sortOrder, ma.id AS media_id, ma.public_url, psit.alt_text AS alt
+      `SELECT psi.id, psi.series_id AS seriesId, psi.sort_order AS sortOrder, ma.id AS media_id, ma.public_url,
+              COALESCE(current.alt_text, fallback.alt_text, '') AS alt
        FROM product_series_images psi
        JOIN media_assets ma ON ma.id = psi.media_id
-       JOIN product_series_image_translations psit ON psit.series_image_id = psi.id AND psit.locale = ?
+       LEFT JOIN product_series_image_translations current ON current.series_image_id = psi.id AND current.locale = ?
+       LEFT JOIN product_series_image_translations fallback ON fallback.series_image_id = psi.id AND fallback.locale = 'en'
        WHERE ma.deleted_at IS NULL
        ORDER BY psi.series_id, psi.sort_order, psi.id`
     ).bind(locale).all(),
     db.prepare(
       `SELECT ab.id, ab.image_position AS imagePosition, ab.sort_order AS sortOrder, ma.id AS media_id, ma.public_url,
-              abt.eyebrow, abt.title, abt.body, abt.tags_json AS tagsJson, abt.image_alt AS imageAlt
+              COALESCE(current.eyebrow, fallback.eyebrow, '') AS eyebrow,
+              COALESCE(current.title, fallback.title, '') AS title,
+              COALESCE(current.body, fallback.body, '') AS body,
+              COALESCE(current.tags_json, fallback.tags_json, '[]') AS tagsJson,
+              COALESCE(current.image_alt, fallback.image_alt, '') AS imageAlt
        FROM about_blocks ab
        JOIN media_assets ma ON ma.id = ab.media_id
-       JOIN about_block_translations abt ON abt.block_id = ab.id AND abt.locale = ?
+       LEFT JOIN about_block_translations current ON current.block_id = ab.id AND current.locale = ?
+       LEFT JOIN about_block_translations fallback ON fallback.block_id = ab.id AND fallback.locale = 'en'
        WHERE ab.status = 'published' AND ma.deleted_at IS NULL
        ORDER BY ab.sort_order, ab.id`
     ).bind(locale).all(),
@@ -77,7 +99,13 @@ export async function getHomeContent(db, locale) {
 
   for (const image of seriesImagesResult.results) {
     const images = imagesBySeries.get(image.seriesId) || [];
-    images.push({ id: image.id, url: mediaUrl(image), alt: image.alt, sortOrder: image.sortOrder });
+    images.push({
+      id: image.id,
+      ...(includeMediaIds ? { mediaId: image.media_id } : {}),
+      url: mediaUrl(image),
+      alt: image.alt,
+      sortOrder: image.sortOrder,
+    });
     imagesBySeries.set(image.seriesId, images);
   }
 
@@ -87,6 +115,7 @@ export async function getHomeContent(db, locale) {
     sections,
     slides: slidesResult.results.map((slide) => ({
       id: slide.id,
+      ...(includeMediaIds ? { mediaId: slide.media_id } : {}),
       url: mediaUrl(slide),
       alt: slide.alt,
       sortOrder: slide.sortOrder,
@@ -105,7 +134,11 @@ export async function getHomeContent(db, locale) {
       body: block.body,
       tags: parseTags(block.tagsJson),
       imagePosition: block.imagePosition,
-      image: { url: mediaUrl(block), alt: block.imageAlt },
+      image: {
+        ...(includeMediaIds ? { mediaId: block.media_id } : {}),
+        url: mediaUrl(block),
+        alt: block.imageAlt,
+      },
       sortOrder: block.sortOrder,
     })),
   };
